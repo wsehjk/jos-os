@@ -41,7 +41,7 @@ bootmain(void)
 	struct Proghdr *ph, *eph;
 
 	// read 1st page off disk
-	readseg((uint32_t) ELFHDR, SECTSIZE*8, 0);
+	readseg((uint32_t) ELFHDR, SECTSIZE*8, 0); // 8 * 512 -> 4kB
 
 	// is this a valid ELF?
 	if (ELFHDR->e_magic != ELF_MAGIC)

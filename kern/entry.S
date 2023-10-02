@@ -54,17 +54,21 @@ entry:
 
 	# Load the physical address of entry_pgdir into cr3.  entry_pgdir
 	# is defined in entrypgdir.c.
+	# RELOC(entry_pgdir) = entry_pgdir - KERNBASE
+	# 这个计算是和 现在的 使用的Low 4MB无关
 	movl	$(RELOC(entry_pgdir)), %eax
 	movl	%eax, %cr3
 	# Turn on paging.
 	movl	%cr0, %eax
 	orl	$(CR0_PE|CR0_PG|CR0_WP), %eax
+	# cr0寄存器 设置分页标记
 	movl	%eax, %cr0
 
+	# 因为entry_pgdir对[0,4MB)内虚拟地址翻译为到相同的物理地址，
 	# Now paging is enabled, but we're still running at a low EIP
 	# (why is this okay?).  Jump up above KERNBASE before entering
 	# C code.
-	mov	$relocated, %eax
+	mov	$relocated, %eax  #产生 KERNBASE+4MB 地址
 	jmp	*%eax
 relocated:
 

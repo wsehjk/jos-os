@@ -65,7 +65,8 @@ stab_binsearch(const struct Stab *stabs, int *region_left, int *region_right,
 		}
 
 		// actual binary search
-		any_matches = 1;
+		// stabs[m].n_type = type
+		any_matches = 1; 
 		if (stabs[m].n_value < addr) {
 			*region_left = m;
 			l = true_m + 1;
@@ -179,6 +180,10 @@ debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)
 	//	Look at the STABS documentation and <inc/stab.h> to find
 	//	which one.
 	// Your code here.
+	stab_binsearch(stabs, &lline, &rline, N_SLINE, addr);
+
+	// if ()
+	info->eip_line = rline;
 
 
 	// Search backwards from the line number for the relevant filename

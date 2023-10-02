@@ -25,7 +25,7 @@ pde_t entry_pgdir[NPDENTRIES] = {
 	// Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
 	[KERNBASE>>PDXSHIFT]
 		= ((uintptr_t)entry_pgtable - KERNBASE) + PTE_P + PTE_W
-};
+}; // entry_pgtable- KERNBASE 是物理地址
 
 // Entry 0 of the page table maps to physical page 0, entry 1 to
 // physical page 1, etc.

@@ -4,35 +4,35 @@
 #define ELF_MAGIC 0x464C457FU	/* "\x7FELF" in little endian */
 
 struct Elf {
-	uint32_t e_magic;	// must equal ELF_MAGIC
-	uint8_t e_elf[12];
-	uint16_t e_type;
-	uint16_t e_machine;
-	uint32_t e_version;
-	uint32_t e_entry;
-	uint32_t e_phoff;
-	uint32_t e_shoff;
-	uint32_t e_flags;
-	uint16_t e_ehsize;
-	uint16_t e_phentsize;
-	uint16_t e_phnum;
-	uint16_t e_shentsize;
-	uint16_t e_shnum;
+	uint32_t e_magic;	 // 0  // must equal ELF_MAGIC
+	uint8_t e_elf[12];   // 4
+	uint16_t e_type;	 // 10
+	uint16_t e_machine;  // 
+	uint32_t e_version;    // 14
+	uint32_t e_entry;      // 18 
+	uint32_t e_phoff;      // 1c 
+	uint32_t e_shoff;      // 20  
+	uint32_t e_flags;      // 24
+	uint16_t e_ehsize;     // 28
+	uint16_t e_phentsize;  // 
+	uint16_t e_phnum;	   // 2c 
+	uint16_t e_shentsize;  // 
+	uint16_t e_shnum;      // 30 
 	uint16_t e_shstrndx;
 };
 
-struct Proghdr {
-	uint32_t p_type;
-	uint32_t p_offset;
-	uint32_t p_va;
-	uint32_t p_pa;
-	uint32_t p_filesz;
-	uint32_t p_memsz;
-	uint32_t p_flags;
-	uint32_t p_align;
+struct Proghdr { // 32字节
+	uint32_t p_type;    // 0
+	uint32_t p_offset;  // 04
+	uint32_t p_va;      // 08
+	uint32_t p_pa;      // 0c
+	uint32_t p_filesz;  // 10
+	uint32_t p_memsz;   // 14
+	uint32_t p_flags;   // 18
+	uint32_t p_align;   // 1c 
 };
 
-struct Secthdr {
+struct Secthdr { //40字节， 0x28
 	uint32_t sh_name;
 	uint32_t sh_type;
 	uint32_t sh_flags;

@@ -9,7 +9,7 @@
 static void
 putch(int ch, int *cnt)
 {
-	cputchar(ch);
+	cputchar(ch); // 输出一个字符
 	*cnt++;
 }
 
