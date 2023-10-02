@@ -62,14 +62,16 @@ mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 	cprintf("Stack backtrace:\n");
 	uint32_t ebp = read_ebp(); // 获取ebp值
 	struct Eipdebuginfo info;
-	
+	//int num = 0;	
 	while (ebp != 0) {
 		uint32_t* p = (uint32_t*)ebp;
 		uint32_t eip = p[1];
-		cprintf("  ebp %08x eip %08x args %08x %08x %08x %08x %08x\n", ebp, eip, p[2], p[3], p[4], p[5], p[6]);
-		//debuginfo_eip(eip, &info);
-		//cprintf("%s:%d: %s+%d\n", info.eip_file, info.eip_line, info.eip_fn_name, info.);
+		//cprintf("%d:  ebp %08x eip %08x args %08x %08x %08x %08x %08x\n",num, ebp, eip, p[2], p[3], p[4], p[5], p[6]);
+		cprintf("ebp %08x eip %08x args %08x %08x %08x %08x %08x\n", ebp, eip, p[2], p[3], p[4], p[5], p[6]);
+		debuginfo_eip(eip, &info);
+		cprintf("	%s:%d: %.*s+%d\n", info.eip_file, info.eip_line, info.eip_fn_namelen,info.eip_fn_name, eip-info.eip_fn_addr);
 		ebp = p[0]; // 获取上一个ebp 帧指针的值
+		//num++;
 	}	
 	return 0;
 }
